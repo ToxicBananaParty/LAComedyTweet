@@ -14,10 +14,10 @@ const twitter = new twit({
     strictSSL: false
 });
 
-const handles = JSON.parse(fs.readFileSync('./handles.json', 'utf-8'));
+const userIdPairs = JSON.parse(fs.readFileSync('./handles.json', 'utf-8'));
 let users = [];
-for(let key in handles) {
-    users.push(handles[key]);
+for(let username in userIdPairs) {
+    users.push(userIdPairs[username]);
 }
 
 let stream = twitter.stream('statuses/filter', {
