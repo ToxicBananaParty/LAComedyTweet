@@ -1,6 +1,6 @@
 const fs = require('fs');
 const twit = require('twit');
-const PushNotification = require('node-pushnotifications').PushNotification;
+const twilio = require('twilio');
 
 /*=============
     STARTUP
@@ -41,3 +41,8 @@ stream.on('tweet', (tweet) => {
 function parseTweet(tweet) {
     console.log(tweet);
 }
+
+/*=============
+     DEBUG
+==============*/
+parseTweet("CUSTOMTEST");
