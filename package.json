@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ToxicBananaParty/LAComedyTweet#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "node-pushnotifications": "^1.7.1",
+    "node-gcm": "^1.0.5",
     "twit": "^2.2.11"
   }
 }
