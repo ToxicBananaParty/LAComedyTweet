@@ -2,9 +2,9 @@ const fs = require('fs');
 const twit = require('twit');
 const PushNotification = require('node-pushnotifications').PushNotification;
 
-/*************
+/*=============
     STARTUP
-*************/
+==============*/
 const twitter = new twit({
     consumer_key: '6z6rgu0luuxlEMFUqHmn8uW4v',
     consumer_secret: 'usIECLmDid9U5vPYOFGateTtyx5cH7dDGhyLdHkNwDklCu2P3a',
@@ -35,6 +35,9 @@ stream.on('tweet', (tweet) => {
 });
 
 
+/*=====================================
+    PARSE TWEET & PREPARE RESPONSE
+======================================*/
 function parseTweet(tweet) {
     console.log(tweet);
 }
