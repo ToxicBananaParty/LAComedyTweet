@@ -1,6 +1,6 @@
 const fs = require('fs');
 const twit = require('twit');
-import PushNotifications from 'node-pushnotifications';
+const PushNotification = require('node-pushnotifications').PushNotification;
 
 /*************
     STARTUP
