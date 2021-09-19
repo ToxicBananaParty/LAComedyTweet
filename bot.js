@@ -5,6 +5,9 @@ const twilio = require('twilio');
 /*=============
     STARTUP
 ==============*/
+const senderNum = '+16179345848'
+const phoneNums = ['+15138822228', '+17657601991'];
+const texter = new twilio('ACb2c781c92ebc857aeb4717abb1964ffa', 'b0487e88dcbb4535fc5a54e08211324f');
 const twitter = new twit({
     consumer_key: '6z6rgu0luuxlEMFUqHmn8uW4v',
     consumer_secret: 'usIECLmDid9U5vPYOFGateTtyx5cH7dDGhyLdHkNwDklCu2P3a',
@@ -26,7 +29,7 @@ let stream = twitter.stream('statuses/filter', {
 
 stream.on('tweet', (tweet) => {
     if(tweet.entities.urls) {
-        console.log("INSIDE SPECIAL IF\nURLS ARR IS: " + tweet.entities.urls);
+        console.log("INSIDE SPECIAL IF\nURLS ARR IS: " + tweet.entities.urls[0]);
     }
     if(tweet.truncated)
         parseTweet(tweet.extended_tweet.full_text);
@@ -46,3 +49,13 @@ function parseTweet(tweet) {
      DEBUG
 ==============*/
 parseTweet("CUSTOMTEST");
+
+/*
+phoneNums.forEach(phoneNum => {
+    texter.messages.create({
+        body: "Hello this is Ryan's Twitter Bot\nIf you're reading this I'M ALIIIIIIIVE!",
+        from: senderNum,
+        to: phoneNum
+    }).then(message => console.log(message.sid)).done();
+});
+*/
