@@ -35,13 +35,14 @@ let stream = twitter.stream('statuses/filter', {
 
 // Catch tweets from stream
 stream.on('tweet', (tweet) => {
-    if(tweet.entities.urls) {
-        console.log("INSIDE SPECIAL IF\nURLS ARR IS: " + tweet.entities.urls[0]);
+    console.log(JSON.stringify(tweet, null, 4));
+    if(tweet.entities.urls.length > 0) {
+        console.log("\n\nINSIDE SPECIAL IF\nURLS ARR IS:\n " + JSON.stringify(tweet.entities.urls[0], null, 4) + "\n\n");
     }
     if(tweet.truncated)
-        parseTweet(tweet.extended_tweet.full_text);
+        parseTweet(tweet.extended_tweet.full_text, tweet.user.screen_name);
     else 
-        parseTweet(tweet.text);
+        parseTweet(tweet.text, tweet.user.screen_name);
 });
 
 
@@ -49,14 +50,14 @@ stream.on('tweet', (tweet) => {
     PARSE TWEET & PREPARE RESPONSE
 ======================================*/
 // Figure out if tweet is linking tickets for sale
-function parseTweet(tweet) {
-    console.log(tweet);
+function parseTweet(tweet, user) {
+    console.log("User: " + user + "\nSays: " + tweet);
 }
 
 /*=============
      DEBUG
 ==============*/
-parseTweet("CUSTOMTEST");
+parseTweet("CUSTOMTEST", "CustomTest");
 
 /*
 phoneNums.forEach(phoneNum => {
