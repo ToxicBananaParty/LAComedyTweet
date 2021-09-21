@@ -11,15 +11,12 @@ const twilio = require('twilio');
 // Init twilio and twitter bots
 const senderNum = '+16179345848'
 const phoneNums = ['+15138822228', '+17657601991'];
-const texter = new twilio('ACb2c781c92ebc857aeb4717abb1964ffa', 'b0487e88dcbb4535fc5a54e08211324f');
-const twitter = new twit({
-    consumer_key: '6z6rgu0luuxlEMFUqHmn8uW4v',
-    consumer_secret: 'usIECLmDid9U5vPYOFGateTtyx5cH7dDGhyLdHkNwDklCu2P3a',
-    access_token: '1409971423100096512-L2lucDeldv02OO598wvGKxMNolg7QR',
-    access_token_secret: 'staeXbQwlZk08lavyFwPB4VftgRTcby2ak2gqHPAn39jk',
-    timeout_ms: 60*1000,
-    strictSSL: false
-});
+
+const twilioParams = JSON.parse(fs.readFileSync('./apikeys/twilio.json', 'utf-8'));
+const twitParams = JSON.parse(fs.readFileSync('./apikeys/twitter.json', 'utf-8'));
+
+const texter = new twilio(twilioParams);
+const twitter = new twit(twitParams);
 
 // Get UserIDs from handles.json
 const userIdPairs = JSON.parse(fs.readFileSync('./handles.json', 'utf-8'));
