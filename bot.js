@@ -15,7 +15,7 @@ const phoneNums = ['+15138822228', '+17657601991'];
 const twilioParams = JSON.parse(fs.readFileSync('./apikeys/twilio.json', 'utf-8'));
 const twitParams = JSON.parse(fs.readFileSync('./apikeys/twitter.json', 'utf-8'));
 
-const texter = new twilio(twilioParams);
+//const texter = new twilio(twilioParams);
 const twitter = new twit(twitParams);
 
 // Get UserIDs from handles.json
@@ -32,14 +32,20 @@ let stream = twitter.stream('statuses/filter', {
 
 // Catch tweets from stream
 stream.on('tweet', (tweet) => {
-    console.log(JSON.stringify(tweet, null, 4));
-    if(tweet.entities.urls.length > 0) {
-        console.log("\n\nINSIDE SPECIAL IF\nURLS ARR IS:\n " + JSON.stringify(tweet.entities.urls[0], null, 4) + "\n\n");
+    
+    if(tweet.truncated) {
+        if(tweet.entities.urls.length > 0) {
+            parseTweet(tweet.extended_tweet.full_text, tweet.user.screen_name, tweet.entities.urls[0].expanded_url);
+        } else {
+            parseTweet(tweet.extended_tweet.full_text, tweet.user.screen_name);
+        }
+    } else {
+        if(tweet.entities.urls.length > 0) {
+            parseTweet(tweet.text, tweet.user.screen_name, tweet.entities.urls[0].expanded_url);
+        } else {
+            parseTweet(tweet.text, tweet.user.screen_name);
+        }
     }
-    if(tweet.truncated)
-        parseTweet(tweet.extended_tweet.full_text, tweet.user.screen_name);
-    else 
-        parseTweet(tweet.text, tweet.user.screen_name);
 });
 
 
@@ -47,8 +53,8 @@ stream.on('tweet', (tweet) => {
     PARSE TWEET & PREPARE RESPONSE
 ======================================*/
 // Figure out if tweet is linking tickets for sale
-function parseTweet(tweet, user) {
-    console.log("User: " + user + "\nSays: " + tweet);
+function parseTweet(tweet, user, url) {
+    console.log("\nUser: " + user + "\nSays: " + tweet + "\nWith URL: " + url);
 }
 
 /*=============
